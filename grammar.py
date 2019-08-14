@@ -74,7 +74,7 @@ class Grammar:
         raw_grammar = self.read_grammar(path)
 
         if raw_grammar is None:
-            print 'Grammar file does not exist.'
+            print('Grammar file does not exist.')
             exit(-1)
 
         return self.parse_grammar(raw_grammar)
@@ -153,7 +153,7 @@ class Grammar:
                     else:
                         productions += ' '+symbol
                 productions += ' | '
-            print '<'+_key_+'> ::='+productions[:-3]
+            print('<'+_key_+'> ::='+productions[:-3])
 
 
     def initialise(self, start_symbol):
@@ -250,7 +250,7 @@ class Grammar:
                 phenotype corresponding to the input genotype
         """
 
-        read_codons = dict.fromkeys(genotype.keys(), 0)
+        read_codons = dict.fromkeys(list(genotype.keys()), 0)
         phenotype = self.decode_recursive((start_symbol, True),
                                                      read_codons, genotype, '')
 

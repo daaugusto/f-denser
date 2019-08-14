@@ -85,7 +85,7 @@ class TimedStopping(keras.callbacks.Callback):
         if time() - self.start_time > self.seconds:
             self.model.stop_training = True
             if self.verbose:
-                print('Stopping after %s seconds.' % self.seconds)
+                print(('Stopping after %s seconds.' % self.seconds))
 
 
 class Evaluator:
@@ -295,7 +295,7 @@ class Evaluator:
 
         #Connection between layers
         for layer in keras_layers:
-            layer[1]['input'] = map(int, layer[1]['input'])
+            layer[1]['input'] = list(map(int, layer[1]['input']))
 
 
         first_fc = True
@@ -354,8 +354,8 @@ class Evaluator:
                 data_layers.append(data_layers[-1])
                 invalid_layers.append(layer_idx)
                 if DEBUG:
-                    print keras_layers[layer_idx][0]
-                    print e
+                    print(keras_layers[layer_idx][0])
+                    print(e)
 
         
         model = keras.models.Model(inputs=inputs, outputs=data_layers[-1])
@@ -504,7 +504,7 @@ class Evaluator:
         accuracy_test = self.fitness_metric(self.dataset['evo_y_test'], y_pred_test)
 
         if DEBUG:
-            print phenotype, accuracy_test
+            print(phenotype, accuracy_test)
 
         score.history['trainable_parameters'] = trainable_count
         score.history['accuracy_test'] = accuracy_test

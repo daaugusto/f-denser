@@ -640,8 +640,8 @@ def main(run, dataset, config_file, grammar_path):
             break
 
         if gen == 0:
-            print('[%d] Creating the initial population' % (run))
-            print('[%d] Performing generation: %d' % (run, gen))
+            print(('[%d] Creating the initial population' % (run)))
+            print(('[%d] Performing generation: %d' % (run, gen)))
             
             #create initial population
             population = [Individual(config["NETWORK"]["network_structure"], config["NETWORK"]["macro_structure"],\
@@ -659,7 +659,7 @@ def main(run, dataset, config_file, grammar_path):
                 ind.id = idx
         
         else:
-            print('[%d] Performing generation: %d' % (run, gen))
+            print(('[%d] Performing generation: %d' % (run, gen)))
             
             #generate offspring (by mutation)
             offspring = [mutation(parent, grammar, config["EVOLUTIONARY"]["MUTATIONS"]["add_layer"],
@@ -703,8 +703,8 @@ def main(run, dataset, config_file, grammar_path):
             with open('%s/run_%d/best_parent.pkl' % (config["EVOLUTIONARY"]["save_path"], run), 'wb') as handle:
                 pickle.dump(parent, handle, protocol=pickle.HIGHEST_PROTOCOL)
 
-        print('[%d] Best fitness of generation %d: %f' % (run, gen, max(population_fits)))
-        print('[%d] Best overall fitness: %f' % (run, best_fitness))
+        print(('[%d] Best fitness of generation %d: %f' % (run, gen, max(population_fits))))
+        print(('[%d] Best overall fitness: %f' % (run, best_fitness)))
 
         #save population
         save_pop(population, config["EVOLUTIONARY"]["save_path"], run, gen)
@@ -715,7 +715,7 @@ def main(run, dataset, config_file, grammar_path):
 
     #compute testing performance of the fittest network
     best_test_acc = cnn_eval.testing_performance('%s/run_%d/best.h5' % (config["EVOLUTIONARY"]["save_path"], run))
-    print('[%d] Best test accuracy: %f' % (run, best_test_acc))
+    print(('[%d] Best test accuracy: %f' % (run, best_test_acc)))
 
 
 
@@ -737,13 +737,13 @@ def process_input(argv):
     try:
         opts, args = getopt.getopt(argv, "hd:c:r:g:",["dataset=","config=","run=","grammar="]   )
     except getopt.GetoptError:
-        print 'f_denser.py -d <dataset> -c <config> -r <run> -g <grammra>'
+        print('f_denser.py -d <dataset> -c <config> -r <run> -g <grammra>')
         sys.exit(2)
 
 
     for opt, arg in opts:
         if opt == '-h':
-            print 'f_denser.py -d <dataset> -c <config> -r <run> -g <grammra>'
+            print('f_denser.py -d <dataset> -c <config> -r <run> -g <grammra>')
             sys.exit()
 
         elif opt in ("-d", "--dataset"):
@@ -763,35 +763,35 @@ def process_input(argv):
 
     #check if mandatory variables are all set
     if dataset is None:
-        print 'The dataset (-d) parameter is mandatory.'
+        print('The dataset (-d) parameter is mandatory.')
         error = True
 
     if config_file is None:
-        print 'The config. file parameter (-c) is mandatory.'
+        print('The config. file parameter (-c) is mandatory.')
         error = True
 
     if grammar is None:
-        print 'The grammar (-g) parameter is mandatory.'
+        print('The grammar (-g) parameter is mandatory.')
         error = True
 
     if error:
-        print 'f_denser.py -d <dataset> -c <config> -r <run> -g <grammar>'
+        print('f_denser.py -d <dataset> -c <config> -r <run> -g <grammar>')
         exit(-1)
 
     #check if files exist
     if not os.path.isfile(grammar):
-        print 'Grammar file does not exist.'
+        print('Grammar file does not exist.')
         error = True
 
     if not os.path.isfile(config_file):
-        print 'Configuration file does not exist.'
+        print('Configuration file does not exist.')
         error = True
 
 
     if not error:
         main(run, dataset, config_file, grammar)
     else:
-        print 'f_denser.py -d <dataset> -c <config> -r <run> -g <grammar>'
+        print('f_denser.py -d <dataset> -c <config> -r <run> -g <grammar>')
 
 
 

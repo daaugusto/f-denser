@@ -62,7 +62,7 @@ def load_test(wnids, dataset_path, shape):
 	x_test = np.ndarray(shape = (10000, 32, 32, 3), dtype = np.uint8)
 	y_test = np.ndarray(shape = (10000), dtype = np.uint8)
 
-	for i, line in enumerate(map(lambda s: s.strip(), open('%s/val/val_annotations.txt' % dataset_path))):
+	for i, line in enumerate([s.strip() for s in open('%s/val/val_annotations.txt' % dataset_path)]):
 		name, wnid = line.split('\t')[:2]
 		
 		im = Image.open('%s/val/images/%s' % (dataset_path, name)).convert('RGB')
@@ -101,7 +101,7 @@ def load_tiny_imagenet(dataset_path, shape):
     """
 
 
-	wnids = map(lambda x: x.strip(), open('%s/wnids.txt' % dataset_path).readlines())
+	wnids = [x.strip() for x in open('%s/wnids.txt' % dataset_path).readlines()]
 
 	x_train, y_train = load_train(wnids, dataset_path, shape)
 	x_test, y_test = load_test(wnids, dataset_path, shape)
